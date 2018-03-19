@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Amita|Shadows+Into+Light" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css"/>
+    <title>D&amp;D</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Dungeons and Dragons</h1>
+      <h2>Your Monsters</h2>
+
+      <ul>
+      	<li v-for="item in yourMonsters" draggable="true" v-on:dragstart="dragItem(item)" v-on:dragover.prevent v-on:drop="dropItem(item)">
+      	  <img v-bind:src="item.img_url"/>
+          <div class="monster_info">
+            <label class="title">{{ item.name }}</label>
+            <p class="monster-description"> {{ item.meta }}</p>
+            <div class="monster-stats">
+              <div class="col-1">
+                <label>STR: {{item.STR}} {{item.STR_mod}}</label>
+                <label>DEX: {{item.DEX}} {{item.DEX_mod}}</label>
+                <label>CON: {{item.CON}} {{item.CON_mod}}</label>
+              </div>
+              <div class="col-2">
+                <label>INT: {{item.INT}} {{item.INT_mod}}</label>
+                <label>WIS: {{item.WIS}} {{item.WIS_mod}}</label>
+                <label>CHA: {{item.CHA}} {{item.CHA_mod}}</label>
+              </div>
+            </div>
+
+          </div>
+          <button v-on:click="addToCart(item)" class="delete">-</button>
+      	</li>
+      </ul>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js" integrity="sha256-pU9euBaEcVl8Gtg+FRYCtin2vKLN8sx5/4npZDmY2VA=" crossorigin="anonymous"></script>
+    <script src="/script.js"></script>
+  </body>
+</html>

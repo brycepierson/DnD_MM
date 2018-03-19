@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <link href="https://fonts.googleapis.com/css?family=Amita|Shadows+Into+Light" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css"/>
+    <title>D&amp;D</title>
+
+  </head>
+  <body>
+    <div id="app">
+
+
+      <button v-show="myTeamVisible === 'False'"class="myTeam" v-on:click="showMyTeam">My Team ({{myTeamSize}})</button>
+      <button v-show="myTeamVisible === 'True'"class="myTeam" v-on:click="hideMyTeam">Monster Manual</button>
+
+      <h1>Dungeons and Dragons</h1>
+      <div v-show="myTeamVisible === 'True'">
+        <h2>Gather Your Team of Monsters!</h2>
+        <p v-show="myTeamSize === 0">Oh no!  You have no monsters!  Go to the manual and pick some out!</p>
+      </div>
+
+      <div v-show="myTeamVisible === 'False'">
+        <h2>Monster Manual</h2>
+        <p>A complete guide to the monsters of D&amp;D</p>
+        <hr>
+        <p>Filter by first letter</p>
+        <div class="letterFilters">
+          <button v-on:click="firstLetterFilter('a')">A</button>
+          <button v-on:click="firstLetterFilter('b')">B</button>
+          <button v-on:click="firstLetterFilter('c')">C</button>
+          <button v-on:click="firstLetterFilter('d')">D</button>
+          <button v-on:click="firstLetterFilter('e')">E</button>
+          <button v-on:click="firstLetterFilter('f')">F</button>
+          <button v-on:click="firstLetterFilter('g')">G</button>
+          <button v-on:click="firstLetterFilter('h')">H</button>
+          <button v-on:click="firstLetterFilter('h')">H</button>
+          <button v-on:click="firstLetterFilter('i')">I</button>
+          <button v-on:click="firstLetterFilter('j')">J</button>
+          <button v-on:click="firstLetterFilter('k')">K</button>
+          <button v-on:click="firstLetterFilter('l')">L</button>
+          <button v-on:click="firstLetterFilter('m')">M</button>
+          <button v-on:click="firstLetterFilter('n')">N</button>
+          <button v-on:click="firstLetterFilter('o')">O</button>
+          <button v-on:click="firstLetterFilter('p')">P</button>
+          <button v-on:click="firstLetterFilter('q')">Q</button>
+          <button v-on:click="firstLetterFilter('r')">R</button>
+          <button v-on:click="firstLetterFilter('s')">S</button>
+          <button v-on:click="firstLetterFilter('t')">T</button>
+          <button v-on:click="firstLetterFilter('u')">U</button>
+          <button v-on:click="firstLetterFilter('v')">V</button>
+          <button v-on:click="firstLetterFilter('w')">W</button>
+          <button v-on:click="firstLetterFilter('x')">X</button>
+          <button v-on:click="firstLetterFilter('y')">Y</button>
+          <button v-on:click="firstLetterFilter('z')">Z</button>
+          <button v-on:click="firstLetterFilter('')">SHOW ALL</button>
+        </div>
+        <p>Filter by stats</p>
+        <div class="statFilters">
+          <div> <label>STR >= </label> <input v-model="STRfilter" type="number" name="STR" value="0"></div>
+          <div> <label>DEX >= </label> <input v-model="DEXfilter" type="number"name="DEX" value="0"></div>
+          <div> <label>CON >= </label> <input v-model="CONfilter" type="number"name="CON" value="0"></div>
+          <div><label>INT >= </label> <input v-model="INTfilter" type="number"name="INT" value="0"></div>
+          <div><label>WIS >= </label> <input v-model="WISfilter" type="number"name="WIS" value="0"></div>
+          <div><label>CHA >= </label> <input v-model="CHAfilter" type="number"name="CHA" value="0"></div>
+        </div>
+      </div>
+
+
+      <ul>
+      	<li v-for="item in filteredItems" draggable="true" v-on:dragstart="dragItem(item)" v-on:dragover.prevent v-on:drop="dropItem(item)">
+      	  <img v-bind:src="item.img_url"/>
+          <div class="monster_info">
+            <label class="title">{{ item.name }}</label>
+            <p class="monster-description"> {{ item.meta }}</p>
+            <div class="monster-stats">
+              <div class="col-1">
+                <label>STR: {{item.STR}} {{item.STR_mod}}</label>
+                <label>DEX: {{item.DEX}} {{item.DEX_mod}}</label>
+                <label>CON: {{item.CON}} {{item.CON_mod}}</label>
+              </div>
+              <div class="col-2">
+                <label>INT: {{item.INT}} {{item.INT_mod}}</label>
+                <label>WIS: {{item.WIS}} {{item.WIS_mod}}</label>
+                <label>CHA: {{item.CHA}} {{item.CHA_mod}}</label>
+              </div>
+            </div>
+
+          </div>
+          <div v-show="myTeamVisible === 'False'">
+            <button v-on:click="addToCart(item)" class="delete">+</button>
+          </div>
+          <div v-show="myTeamVisible === 'True'">
+            <button v-on:click="removeFromCart(item)" class="delete">-</button>
+          </div>
+
+      	</li>
+      </ul>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js" integrity="sha256-pU9euBaEcVl8Gtg+FRYCtin2vKLN8sx5/4npZDmY2VA=" crossorigin="anonymous"></script>
+    <script src="/script.js"></script>
+  </body>
+</html>
